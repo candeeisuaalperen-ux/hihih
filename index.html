@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nesrin ❤️</title>
+<title>Aç bakalım ❤️</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -16,8 +16,8 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #ffe0eb, #ffb6cc);
-  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#ffe0eb,#ffb6cc);
+  font-family: Arial,sans-serif;
   text-align: center;
   color: #8b1747;
 }
@@ -48,6 +48,7 @@ button {
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 #yes {
@@ -63,8 +64,8 @@ button {
 #result {
   font-size: 25px;
   font-weight: bold;
-  margin-top: 20px;
   line-height: 1.5;
+  margin-top: 20px;
 }
 
 .flying {
@@ -95,7 +96,7 @@ button {
 <div class="card">
   <div id="top" style="font-size:48px">💗</div>
 
-  
+  <h1 id="heading">Aç bakalım ❤️</h1>
 
   <p id="question">
     Sana bir sorum var...<br>
@@ -103,8 +104,8 @@ button {
   </p>
 
   <div id="buttons">
-    <button id="yes">EVET ❤️</button>
-    <button id="no">HAYIR 🥺</button>
+    <button type="button" id="yes">EVET ❤️</button>
+    <button type="button" id="no">HAYIR 🥺</button>
   </div>
 
   <div id="result"></div>
@@ -113,87 +114,84 @@ button {
 <script>
 let step = 0;
 let scale = 1;
+let finished = false;
+let rainTimer = null;
 
 const yes = document.getElementById("yes");
 const no = document.getElementById("no");
 const result = document.getElementById("result");
 
-yes.onclick = function() {
+function makeFlyingItem() {
+  const symbols = ["❤️","🤍","💗","💕","A","N"];
+  const item = document.createElement("div");
+
+  item.className = "flying";
+  item.textContent = symbols[
+    Math.floor(Math.random() * symbols.length)
+  ];
+
+  item.style.left = Math.random() * 100 + "vw";
+  item.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+  document.body.appendChild(item);
+
+  setTimeout(() => item.remove(), 6500);
+}
+
+yes.addEventListener("click", function() {
+  if (finished) return;
+
   step++;
 
   if (step === 1) {
-    document.getElementById("question").innerHTML =
+    document.getElementById("question").textContent =
       "Bak cidden emin misin? 🥺";
 
     yes.textContent = "EVET ❤️";
   }
 
   else if (step === 2) {
-    document.getElementById("question").innerHTML =
+    document.getElementById("question").textContent =
       "Oha cidden seviyorsun lan! ❤️";
 
     yes.textContent = "EVETTT ❤️";
   }
 
   else if (step === 3) {
-    document.getElementById("question").innerHTML =
+    document.getElementById("question").textContent =
       "Kabul ediyorsun yani bu naçizane teklifimi ha canım? 🥹❤️";
 
     yes.textContent = "EVET, KABUL EDİYORUM ❤️";
   }
 
-  else if (step === 4) {
-    document.getElementById("top").textContent = "";
-    document.getElementById("heading").textContent = "";
-    document.getElementById("question").textContent = "";
+  else if (step >= 4) {
+    finished = true;
+
+    document.getElementById("top").style.display = "none";
+    document.getElementById("heading").style.display = "none";
+    document.getElementById("question").style.display = "none";
     document.getElementById("buttons").style.display = "none";
 
     result.textContent = "Yuppiii seviyorum seniiii ❤️❤️❤️";
 
-    const symbols = ["❤️", "🤍", "💗", "💕", "A", "N"];
-
-    for (let i = 0; i < 100; i++) {
-      setTimeout(() => {
-        const item = document.createElement("div");
-
-        item.className = "flying";
-        item.textContent = symbols[
-          Math.floor(Math.random() * symbols.length)
-        ];
-
-        item.style.left = Math.random() * 100 + "vw";
-        item.style.animationDuration = (3 + Math.random() * 3) + "s";
-
-        document.body.appendChild(item);
-
-        setTimeout(() => item.remove(), 6000);
-      }, i * 70);
+    for (let i = 0; i < 60; i++) {
+      setTimeout(makeFlyingItem, i * 60);
     }
 
-    setInterval(() => {
-      const item = document.createElement("div");
-
-      item.className = "flying";
-      item.textContent = symbols[
-        Math.floor(Math.random() * symbols.length)
-      ];
-
-      item.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(item);
-
-      setTimeout(() => item.remove(), 5000);
-    }, 250);
+    rainTimer = setInterval(makeFlyingItem, 220);
   }
-};
+});
 
-no.onclick = function() {
+no.addEventListener("click", function() {
+  if (finished) return;
+
   scale = Math.max(0.1, scale * 0.7);
   no.style.transform = "scale(" + scale + ")";
 
   if (scale < 0.3) {
     no.textContent = "🥺";
   }
-};
+});
 </script>
 
 </body>
