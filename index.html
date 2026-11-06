@@ -4,7 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aç bakalım ❤️</title>
+
+<title>Tıkla bakalım ❤️</title>
+<meta property="og:title" content="Tıkla bakalım ❤️">
+<meta property="og:description" content="Sana küçük bir sürprizim var... ❤️">
+<meta name="twitter:title" content="Tıkla bakalım ❤️">
+<meta name="twitter:description" content="Sana küçük bir sürprizim var... ❤️">
 
 <style>
 * { box-sizing: border-box; }
@@ -12,81 +17,186 @@
 body {
   margin: 0;
   min-height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  background: linear-gradient(135deg,#ffe0eb,#ffb6cc);
-  font-family: Arial,sans-serif;
-  text-align: center;
-  color: #8b1747;
-}
-
-.card {
-  background: white;
-  width: 88%;
-  max-width: 420px;
-  padding: 35px 22px;
-  border-radius: 25px;
-  box-shadow: 0 10px 35px #d8799b55;
-  position: relative;
-  z-index: 2;
-}
-
-h1 { font-size: 34px; }
-
-p {
-  font-size: 21px;
-  line-height: 1.5;
-}
-
-button {
-  border: none;
-  border-radius: 30px;
-  padding: 14px 23px;
-  margin: 8px;
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-#yes {
-  background: #ed397b;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  background:
+    radial-gradient(circle at 20% 20%, #ffb6d5, transparent 35%),
+    radial-gradient(circle at 80% 80%, #c9a4ff, transparent 40%),
+    linear-gradient(135deg, #ff6fa5, #b56be8, #ff9cbd);
   color: white;
 }
 
-#no {
-  background: #ffe1eb;
-  color: #9d315b;
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(90%, 430px);
+  padding: 38px 22px;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 30px;
+  background: rgba(255,255,255,.19);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 50px rgba(100,20,80,.25);
+  text-align: center;
 }
 
-#result {
-  font-size: 25px;
+.big-heart {
+  font-size: 55px;
+  animation: heartbeat 1.3s infinite;
+}
+
+@keyframes heartbeat {
+  50% { transform: scale(1.2); }
+}
+
+h1 {
+  font-size: 30px;
+  margin: 15px 0;
+  text-shadow: 0 3px 12px rgba(120,0,70,.3);
+}
+
+#question {
+  font-size: 21px;
+  line-height: 1.5;
+  min-height: 65px;
+  font-weight: bold;
+}
+
+.buttons { margin-top: 25px; }
+
+button {
+  border: 2px solid rgba(255,255,255,.7);
+  border-radius: 35px;
+  padding: 14px 28px;
+  margin: 7px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .25s;
+  box-shadow: 0 6px 18px rgba(80,0,50,.2);
+}
+
+#yes {
+  color: #e83e82;
+  background: white;
+}
+
+#no {
+  color: white;
+  background: rgba(255,80,130,.65);
+}
+
+#thanks {
+  display: none;
+  margin-top: 18px;
+  font-size: 27px;
   font-weight: bold;
   line-height: 1.5;
-  margin-top: 20px;
+  animation: appear 1s ease;
+  text-shadow: 0 3px 12px rgba(120,0,70,.4);
 }
 
-.flying {
+@keyframes appear {
+  from { opacity: 0; transform: scale(.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.initials {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 15px 0 25px;
+  font-size: 65px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: white;
+  text-shadow:
+    0 0 8px #fff,
+    0 0 18px #ff4f9a,
+    0 0 35px #ff1684,
+    0 0 55px #ff1684;
+  animation: initialsGlow 1.8s infinite alternate;
+}
+
+.initials span:nth-child(2) {
+  font-size: 42px;
+  animation: heartbeat 1s infinite;
+}
+
+@keyframes initialsGlow {
+  from { transform: scale(.95); filter: brightness(.9); }
+  to { transform: scale(1.08); filter: brightness(1.3); }
+}
+
+.floating {
   position: fixed;
   bottom: -50px;
-  font-size: 28px;
-  font-weight: bold;
-  animation: fly 4s linear forwards;
+  z-index: 5;
   pointer-events: none;
-  z-index: 1;
+  animation: fly 6s linear forwards;
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(255,255,255,.8);
 }
 
 @keyframes fly {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+}
+
+.confetti {
+  position: fixed;
+  z-index: 10;
+  width: 10px;
+  height: 15px;
+  pointer-events: none;
+  animation: confettiFall 3.5s linear forwards;
+}
+
+@keyframes confettiFall {
   0% {
-    transform: translateY(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
     opacity: 1;
   }
   100% {
-    transform: translateY(-115vh) rotate(360deg);
+    transform: translate(var(--drift), 110vh) rotate(900deg);
     opacity: 0;
   }
+}
+
+.burst {
+  position: fixed;
+  z-index: 9;
+  pointer-events: none;
+  font-size: 25px;
+  animation: burstOut 1.5s ease-out forwards;
+}
+
+@keyframes burstOut {
+  0% {
+    transform: translate(0,0) scale(.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(1.5) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  color: white;
+  opacity: .7;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: .2; transform: scale(.7); }
+  to { opacity: 1; transform: scale(1.3); }
 }
 </style>
 </head>
@@ -94,104 +204,151 @@ button {
 <body>
 
 <div class="card">
-  <div id="top" style="font-size:48px">💗</div>
+  <div class="big-heart">💗</div>
 
-  <h1 id="heading">Aç bakalım ❤️</h1>
+  <h1 id="heading">Nesrin ❤️</h1>
 
-  <p id="question">
-    Sana bir sorum var...<br>
-    <strong>Benimle çıkar mısın?</strong>
-  </p>
-
-  <div id="buttons">
-    <button type="button" id="yes">EVET ❤️</button>
-    <button type="button" id="no">HAYIR 🥺</button>
+  <div class="initials" id="initials">
+    <span>A</span>
+    <span>❤️</span>
+    <span>N</span>
   </div>
 
-  <div id="result"></div>
+  <p id="question">Benimle çıkar mısın? ❤️</p>
+
+  <div class="buttons">
+    <button id="yes" onclick="yesClick()">EVET ❤️</button>
+    <button id="no" onclick="noClick()">HAYIR 🙈</button>
+  </div>
+
+  <div id="thanks">
+    Yuppiii!<br>
+    Teşekkür ederimmm! ❤️🥹💕
+  </div>
 </div>
 
 <script>
 let step = 0;
-let scale = 1;
 let finished = false;
-let rainTimer = null;
 
-const yes = document.getElementById("yes");
-const no = document.getElementById("no");
-const result = document.getElementById("result");
-
-function makeFlyingItem() {
-  const symbols = ["❤️","🤍","💗","💕","A","N"];
-  const item = document.createElement("div");
-
-  item.className = "flying";
-  item.textContent = symbols[
-    Math.floor(Math.random() * symbols.length)
-  ];
-
-  item.style.left = Math.random() * 100 + "vw";
-  item.style.animationDuration = (3 + Math.random() * 3) + "s";
-
-  document.body.appendChild(item);
-
-  setTimeout(() => item.remove(), 6500);
-}
-
-yes.addEventListener("click", function() {
+function yesClick() {
   if (finished) return;
-
   step++;
 
+  const question = document.getElementById("question");
+
   if (step === 1) {
-    document.getElementById("question").textContent =
-      "Bak cidden emin misin? 🥺";
-
-    yes.textContent = "EVET ❤️";
+    question.innerText = "Oha, istiyor musun? 🥹❤️";
   }
-
   else if (step === 2) {
-    document.getElementById("question").textContent =
-      "Oha cidden seviyorsun lan! ❤️";
-
-    yes.textContent = "EVETTT ❤️";
+    question.innerText =
+      "Ben de çok istiyorum! Hadi son kez daha bas balım ❤️";
   }
-
   else if (step === 3) {
-    document.getElementById("question").textContent =
-      "Kabul ediyorsun yani bu naçizane teklifimi ha canım? 🥹❤️";
-
-    yes.textContent = "EVET, KABUL EDİYORUM ❤️";
-  }
-
-  else if (step >= 4) {
     finished = true;
 
-    document.getElementById("top").style.display = "none";
+    question.style.display = "none";
+    document.querySelector(".buttons").style.display = "none";
+
     document.getElementById("heading").style.display = "none";
-    document.getElementById("question").style.display = "none";
-    document.getElementById("buttons").style.display = "none";
+    document.getElementById("initials").style.display = "flex";
+    document.getElementById("thanks").style.display = "block";
 
-    result.textContent = "Yuppiii seviyorum seniiii ❤️❤️❤️";
+    document.querySelector(".big-heart").innerText = "💖";
 
-    for (let i = 0; i < 60; i++) {
-      setTimeout(makeFlyingItem, i * 60);
+    setInterval(createFloating, 250);
+
+    const confettiInterval = setInterval(createConfetti, 70);
+    setTimeout(() => clearInterval(confettiInterval), 7000);
+
+    createBurst();
+  }
+}
+
+function noClick() {
+  const button = document.getElementById("no");
+  const size = parseFloat(getComputedStyle(button).fontSize);
+  button.style.fontSize = Math.max(10, size - 2) + "px";
+  button.style.padding = "10px 18px";
+}
+
+function createFloating() {
+  const symbols = ["❤️", "💕", "💗", "🤍", "💞", "A", "N"];
+  const item = document.createElement("div");
+
+  item.className = "floating";
+  item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+  item.style.left = Math.random() * 100 + "vw";
+  item.style.fontSize = (20 + Math.random() * 30) + "px";
+
+  if (item.innerText === "A" || item.innerText === "N") {
+    item.style.color = "#fff";
+    item.style.textShadow = "0 0 15px #ff1684, 0 0 30px white";
+  }
+
+  document.body.appendChild(item);
+  setTimeout(() => item.remove(), 6000);
+}
+
+function createConfetti() {
+  const colors = [
+    "#ff1744", "#ffeb3b", "#00e5ff",
+    "#e040fb", "#69f0ae", "#ffffff"
+  ];
+
+  for (let i = 0; i < 5; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti";
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.backgroundColor =
+      colors[Math.floor(Math.random() * colors.length)];
+    piece.style.borderRadius = Math.random() > .5 ? "50%" : "2px";
+    piece.style.setProperty(
+      "--drift",
+      (Math.random() * 200 - 100) + "px"
+    );
+
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 4000);
+  }
+}
+
+function createBurst() {
+  const emojis = ["🎉", "💖", "❤️", "✨", "💕", "🥳"];
+
+  for (let side of [0, 1]) {
+    for (let i = 0; i < 35; i++) {
+      const item = document.createElement("div");
+      item.className = "burst";
+      item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+      item.style.left = side === 0 ? "0" : "100vw";
+      item.style.top = (30 + Math.random() * 40) + "vh";
+
+      item.style.setProperty(
+        "--x",
+        (side === 0 ? 1 : -1) * (100 + Math.random() * 350) + "px"
+      );
+      item.style.setProperty(
+        "--y",
+        (Math.random() * 500 - 250) + "px"
+      );
+
+      document.body.appendChild(item);
+      setTimeout(() => item.remove(), 1600);
     }
-
-    rainTimer = setInterval(makeFlyingItem, 220);
   }
-});
+}
 
-no.addEventListener("click", function() {
-  if (finished) return;
-
-  scale = Math.max(0.1, scale * 0.7);
-  no.style.transform = "scale(" + scale + ")";
-
-  if (scale < 0.3) {
-    no.textContent = "🥺";
-  }
-});
+for (let i = 0; i < 18; i++) {
+  const sparkle = document.createElement("div");
+  sparkle.className = "sparkle";
+  sparkle.innerText = "✦";
+  sparkle.style.left = Math.random() * 100 + "vw";
+  sparkle.style.top = Math.random() * 100 + "vh";
+  sparkle.style.animationDelay = Math.random() * 2 + "s";
+  document.body.appendChild(sparkle);
+}
 </script>
 
 </body>
